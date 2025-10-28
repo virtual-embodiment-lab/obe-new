@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MovementLogger : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class MovementLogger : MonoBehaviour
     private float nextLogTime = 0.0f;   // the next timeframe data should be logged
                                         // doesn't seem to start until 1 second in
 
+    private string sceneName;
     private string filePath;
     private string folderName = "OBE_Movement_Logs";
 
@@ -48,7 +50,9 @@ public class MovementLogger : MonoBehaviour
         DateTime easternTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, easternZone);
         string timestamp = easternTime.ToString("yyyyMMdd_HHmmssfff");
 
-        string fileName = $"Movement_Log_{timestamp}.csv";
+        sceneName = SceneManager.GetActiveScene().name;
+
+        string fileName = $"{sceneName}Movement_Log_{timestamp}.csv";
         filePath = Path.Combine(folderPath, fileName);
         Debug.Log($"File path set to: {filePath}"); 
 
