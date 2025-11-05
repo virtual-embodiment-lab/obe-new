@@ -11,7 +11,7 @@ public class MovementLogger : MonoBehaviour
     [SerializeField] private Transform leftHand;
     [SerializeField] private Transform rightHand;
     
-    private float logHz = 5.0f;   // log once per second
+    public float logHz = 60.0f;   // log 60x per second
     private float nextLogTime = 0.0f;   // the next timeframe data should be logged
                                         // doesn't seem to start until 1 second in
 
