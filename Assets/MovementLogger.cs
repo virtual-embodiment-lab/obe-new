@@ -36,6 +36,15 @@ public class MovementLogger : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// gets current eastern time
+    /// </summary> 
+    private DateTime getEasternTime() {
+        TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+        DateTime easternTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, easternZone);
+        return easternTime;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,8 +55,7 @@ public class MovementLogger : MonoBehaviour
         }
 
         // add timestamp to file name
-        TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
-        DateTime easternTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, easternZone);
+        DateTime easternTime = getEasternTime();
         string timestamp = easternTime.ToString("yyyyMMdd_HHmmssfff");
 
         sceneName = SceneManager.GetActiveScene().name;
@@ -62,7 +70,8 @@ public class MovementLogger : MonoBehaviour
 
         List<string> headers = new List<string>();
         headers.Add("Frame");
-        headers.Add("Time");
+        headers.Add("ElapsedSeconds");
+        headers.Add("CurrentTime");
         foreach(string bodyPart in bodyParts) {
             foreach(string transform in transforms) {
                 headers.Add(bodyPart + transform);
@@ -80,7 +89,7 @@ public class MovementLogger : MonoBehaviour
         if (head != null && leftHand != null && rightHand != null) {
             if (Time.time >= nextLogTime) {
                 // populate csv in order of head, lhand, rhand, for pos: x,y,z then rot: x,y,z
-                List<string> dataRows = new List<string> {Time.frameCount.ToString(), Time.time.ToString("F2")};
+                List<string> dataRows = new List<string> {Time.frameCount.ToString(), Time.time.ToString("F2"), getEasternTime().ToString("HH:mm:ssff")};
                 AddPositionRotation(dataRows);
                 string flatDataRows = string.Join(",", dataRows) + "\n";
 
