@@ -77,8 +77,9 @@ public class OBEManager : MonoBehaviour
 
         OBECamera.gameObject.transform.position = headSetCamera.transform.position + (backwardsUnit * headRadius);
 
-        headSetCamera.enabled = false;
+        headSetCamera.depth = 0;
         OBECamera.enabled = true;
+        OBECamera.depth = 1;
 
         if (!controlInOBE) {
             disabler.Disable();
