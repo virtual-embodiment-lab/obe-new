@@ -13,8 +13,7 @@ public class MovementLogger : MonoBehaviour
     
     public float logHz = 60.0f;   // log 60x per second
     private float nextLogTime = 0.0f;   // the next timeframe data should be logged
-                                        // doesn't seem to start until 1 second in
-
+                                        
     private string sceneName;
     private string filePath;
     private string folderName = "OBE_Movement_Logs";
