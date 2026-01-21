@@ -29,7 +29,9 @@ public class MovementLogger : MonoBehaviour
             dataRows.Add(bodyPart.position.y.ToString());
             dataRows.Add(bodyPart.position.z.ToString());
 
-            dataRows.Add(bodyPart.rotation.eulerAngles.x.ToString());
+            float head_yaw = (bodyPart.rotation.eulerAngles.x + 180f) % 360f;
+
+            dataRows.Add(head_yaw.ToString());
             dataRows.Add(bodyPart.rotation.eulerAngles.y.ToString());
             dataRows.Add(bodyPart.rotation.eulerAngles.z.ToString());
         }
